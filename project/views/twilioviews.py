@@ -17,17 +17,13 @@ def text():
     phone = request.form.get('From','')
     wit = requests.get('https://api.wit.ai/message?v=20140905&q=%s' % b, headers={'Authorization':'Bearer L3VB34V6YTDFO4BRXNDQNAYMVOOF4BHB'}).text
     intent = json.loads(wit)['outcomes'][0]['intent']
-    print json.loads(wit)
     if intent == 'get_status':
         m = get_status(wit, phone)
     elif intent == 'remind':
-        try:
-            entities = json.loads(wit)['outcomes'][0]['entities']
-            date = dateutil.parser.parse(entities['time'][0]['value']['from'])
-            text = entities['message'][0]['value']
-            m = create_reminder(date, text, phone)
-        except Exception, e:
-            print str(e)
+        entities = json.loads(wit)['outcomes'][0]['entities']
+        date = dateutil.parser.parse(entities['time'][0]['value']['from'])
+        text = entities['message'][0]['value']
+        m = create_reminder(date, text, phone)
     else:
         m = "Hmm? Try again please :("
 
