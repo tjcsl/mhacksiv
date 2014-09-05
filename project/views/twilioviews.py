@@ -23,7 +23,7 @@ def text():
     elif intent == 'remind':
         entities = json.loads(wit)['outcomes'][0]['entities']
         date = dateutil.parser.parse(entities['time'][0]['value']['from'])
-        text = entities['message']
+        text = entities['message'][0]['value']
         m = create_reminder(date, text, phone)
     else:
         m = "Hmm? Try again please :("
