@@ -27,7 +27,6 @@ def text():
     else:
         m = "Hmm? Try again please :("
 
-    m = get_status(wit, phone)
     # Send to wit.ai for processing
     resp = twilio.twiml.Response()
     resp.message(m)
