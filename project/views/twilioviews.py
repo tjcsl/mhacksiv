@@ -4,7 +4,7 @@ from ..utils.status import get_status
 from ..utils.reminders import create_reminder
 import twilio.twiml
 import json
-import dateutil
+import dateutil.parser
 
 def call():
     resp = twilio.twiml.Response()
