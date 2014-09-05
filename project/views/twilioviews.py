@@ -4,7 +4,7 @@ from ..utils.status import get_status
 from ..utils.reminders import create_reminder
 import twilio.twiml
 import json
-from datetime import datetime
+import dateutil
 
 def call():
     resp = twilio.twiml.Response()
@@ -22,7 +22,7 @@ def text():
         m = get_status(wit, phone)
     elif intent == 'remind':
         entities = json.loads(wit)['outcomes'][0]['entities']
-        date = datetime.strptime(entities['time'][0]['value']['from'],"%Y-%m-%dT%H:%M:%S.Z")
+        date = dateutil.parser.parse(entities['time'][0]['value']['from'])
         text = entities['message']
         m = create_reminder(date, text, phone)
     else:
