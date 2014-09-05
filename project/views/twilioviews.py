@@ -21,10 +21,13 @@ def text():
     if intent == 'get_status':
         m = get_status(wit, phone)
     elif intent == 'remind':
-        entities = json.loads(wit)['outcomes'][0]['entities']
-        date = dateutil.parser.parse(entities['time'][0]['value']['from'])
-        text = entities['message'][0]['value']
-        m = create_reminder(date, text, phone)
+        try:
+            entities = json.loads(wit)['outcomes'][0]['entities']
+            date = dateutil.parser.parse(entities['time'][0]['value']['from'])
+            text = entities['message'][0]['value']
+            m = create_reminder(date, text, phone)
+        except Exception, e:
+            print str(e)
     else:
         m = "Hmm? Try again please :("
 
