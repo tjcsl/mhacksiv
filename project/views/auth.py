@@ -22,6 +22,10 @@ def process_register():
             elif User.query.filter(User.email == request.form["email"]).first() != None:
                 flash("Error: that email is already in use.", "danger")
             else:
+                for ch in request.form["username"]:
+                    if ch not in 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890-_':
+                        flash("Error: usernames may only use A-Z, a-z, 0-9, _, and -.", "danger")
+                        return redirect("/login/")
                 reguuid = uuid.uuid1()
                 regmail = sendgrid.Mail()
                 regmail.add_to(request.form["email"])
@@ -45,7 +49,7 @@ this link to verify your email address: http://queri.me/verifyemail?user=%s&key=
                 db_session.add(newuser)
                 db_session.commit()
                 flash("Account successfully created. Please check your email for activation instructions.", "success")
-                return render_template('/')
+                return redirect('/')
     return render_template("login.html")
 
 def process_login():
