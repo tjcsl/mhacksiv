@@ -37,6 +37,7 @@ def handle_key_2():
         resp.play("http://queri.me/static/MLG.mp3")
     else:
         return redirect('/internal/call')
+    return str(resp)
 
 def handle_key():
     digit_pressed = request.values.get('Digits', None)
