@@ -1,6 +1,6 @@
 from project import app
 
-from project.views import twilioviews, core, account, auth
+from project.views import twilioviews, core, account, auth, admin
 
 def add_url_routes(routes_tuple):
     for route, view_function in routes_tuple:

@@ -18,21 +18,25 @@
         <td>{{ i[2] }}</td>
         <td>{{ i[3] }}</td>
         <td>{{ i[4] }}</td>
-        <td class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin <span class="caret"></span></a>
-            <ul class="dropdown-menu" role="menu">
-                <li><a href="/admin/users/delete/{{ i[0] }}">Delete</a></li>
-                {% if i[3] %}
-                <li><a href="/admin/users/disable/{{ i[0] }}">Disable</a></li>
-                {% else %}
-                <li><a href="/admin/users/enable/{{ i[0] }}">Enable</a></li>
-                {% endif %}
-                {% if i[4] %}
-                <li><a href="/admin/users/demote/{{ i[0] }}">Demote to user</a></li>
-                {% else %}
-                <li><a href="/admin/users/promote/{{ i[0] }}">Promote to admin</a></li>
-                {% endif %}
-            </ul>
+        <td>
+        	<div class="btn-group">
+        		<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+        			Admin <span class="caret"></span>
+        		</button>
+	            <ul class="dropdown-menu" role="menu">
+	                <li><a href="/admin/users/delete/{{ i[0] }}">Delete</a></li>
+	                {% if i[3] %}
+	                <li><a href="/admin/users/disable/{{ i[0] }}">Disable</a></li>
+	                {% else %}
+	                <li><a href="/admin/users/enable/{{ i[0] }}">Enable</a></li>
+	                {% endif %}
+	                {% if i[4] %}
+	                <li><a href="/admin/users/demote/{{ i[0] }}">Demote to user</a></li>
+	                {% else %}
+	                <li><a href="/admin/users/promote/{{ i[0] }}">Promote to admin</a></li>
+	                {% endif %}
+	            </ul>
+            </div>
         </td>
     </tr>
     {% endfor %}
