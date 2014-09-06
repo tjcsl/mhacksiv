@@ -9,7 +9,7 @@ import dateutil.parser
 def call():
     resp = twilio.twiml.Response()
     resp.record(timeout=10, transcribe=True,
-            transcribeCallback='http://queri.me/rec', )
+            transcribeCallback='http://queri.me/internal/rec', )
     return str(resp)
 
 def do_wit(body, phone):
