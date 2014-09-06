@@ -20,14 +20,16 @@ class User(Base):
     __tablename__ = 'users'
     uid = Column(Integer, primary_key = True)
     username = Column(String(32))
+    email = Column(String(64))
     pwhash = Column(String(128))
     reg_uuid = Column(String(37))
     enabled = Column(Boolean)
     phone = Column(String(24))
 
-    def __init__(self, username=None, pwhash=None, reg_uuid=None, enabled=True,
+    def __init__(self, username=None, email=None, pwhash=None, reg_uuid=None, enabled=True,
             phone=None):
         self.username = username
+        self.email = email
         self.pwhash = pwhash
         self.reg_uuid = reg_uuid
         self.enabled = enabled
