@@ -31,11 +31,13 @@
     <tr>
         <th>Phone number</th>
         <th>Is confirmed?</th>
+        <th>Actions</th>
     </tr>
     {% for phone in phones %}
     <tr>
         <td>{{ phone.phone_number }}</td>
         <td>{{ "Yes" if phone.is_confirmed else "No" }}</td>
+        <td><a href="/account/phones/del/{{ phone.pid }}/">Delete</a></td>
     </tr>
     {% endfor %}
 </table>

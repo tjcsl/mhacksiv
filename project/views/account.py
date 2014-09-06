@@ -37,6 +37,19 @@ def confirm_phone():
     flash("Phone <!-- illuminati --> confirmed.", "success")
     return render_template("account.html")
 
+def delete_phone(pid):
+    if "username" not in session:
+        return redirect("/")
+    phon = Phone.query.filter(Phone.pid == pid).first()
+    if phon.uid != session["user_id"]:
+        flash("Haha, no", "danger")
+        return redirect("/")
+    else:
+        db_session.delete(phon)
+        db_session.commit()
+    flash("Phone deleted.", "success")
+    return render_template("account.html")
+
 def aliases():
     if "username" not in session:
         return redirect("/")
