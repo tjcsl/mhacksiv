@@ -1,6 +1,6 @@
 from project import app
 
-from project.views import twilioviews, core, alias
+from project.views import twilioviews, core, alias, auth
 
 def add_url_routes(routes_tuple):
     for route, view_function in routes_tuple:
@@ -13,5 +13,6 @@ add_url_routes((
     ('/internal/rec', twilioviews.rec),
     ('/', core.index),
     ('/about/', core.about),
-    ('/u/alias/', alias.aliases)
+    ('/account/alias/', alias.aliases),
+    ('/login/', auth.login)
 ))

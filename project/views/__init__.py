@@ -1,4 +1,4 @@
 from ..views import (
-        twilioviews, core, alias
+        twilioviews, core, alias, auth
 )
 from .. import app
