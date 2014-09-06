@@ -60,6 +60,9 @@ def handle_key():
         resp.play("http://a.tumblr.com/tumblr_mascpn4kyJ1qejfr7o1.mp3")
     elif digit_pressed == "4":
         resp.play("http://queri.me/static/MLG.mp3")
+    elif digit_pressed == "2":
+        # 22884646#*
+        resp.gather(numDigits=9, action="/internal/konami", method="POST", finishOnKey='')
     else:
         return redirect('/internal/call')
     return str(resp)
