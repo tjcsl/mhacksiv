@@ -64,6 +64,5 @@ def rec():
     resp = twilio.twiml.Response()
     recording = requests.get(request.form.get('RecordingUrl',''), stream=True).content
     m = do_wit(recording,request.form.get('From',''),recording=True)
-    client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
-    message = client.messages.create(from_="+15172194225", to=request.form.get('From',''), body=m)
-    return ''
+    resp.say(m)
+    return str(resp)
