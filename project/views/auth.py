@@ -54,12 +54,12 @@ this link to verify your email address: http://queri.me/verifyemail?user=%s&key=
 
 def process_login():
     if request.method == "POST":
-        if User.query.filter(User.username == request.form["username"]).first() == None:
+        if User.query.filter((User.username == request.form["username"]) | (User.email == request.form["username"])).first() == None:
             flash("Invalid username or password.", "danger")
-        elif User.query.filter(User.username == request.form["username"] and User.pwhash == hashlib.sha256(request.form["password"])).first() == None:
+        elif User.query.filter(((User.username == request.form["username"]) | (User.email == request.form["username"])) & (User.pwhash == hashlib.sha256(request.form["password"]).hexdigest())).first() == None:
             flash("Invalid username or password.", "danger")
         else:
-            curruser = User.query.filter(User.username == request.form["username"]).first()
+            curruser = User.query.filter((User.username == request.form["username"]) | (User.email == request.form["username"])).first()
             session["user_id"] = curruser.uid
             session["username"] = curruser.username
             flash("Successfully logged in.", "success")
