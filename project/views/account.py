@@ -21,7 +21,7 @@ def add_phone():
     db_session.add(phon)
     db_session.commit()
     flash("Check your phone for a confirmation code.", "success")
-    return redirect("/account/")
+    return redirect("/account/phones/")
 
 def confirm_phone():
     if "username" not in session:
@@ -31,11 +31,11 @@ def confirm_phone():
     phon = Phone.query.filter(Phone.phone_number == phone and Phone.confirmation == code).first()
     if phon is None:
         flash("No phone found.", "danger")
-        return redirect("/account/")
+        return redirect("/account/phones/")
     phon.is_confirmed = True
     db_session.commit()
     flash("Phone <!-- illuminati --> confirmed.", "success")
-    return redirect("/account/")
+    return redirect("/account/phones/")
 
 def delete_phone(pid):
     if "username" not in session:
