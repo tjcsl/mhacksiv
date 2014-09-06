@@ -65,6 +65,9 @@ def addalias():
         if len(request.form["from"]) > 64 or len(request.form["to"]) > 64:
             flash("Alias field too long - max length is 64 characters.", "danger")
             return redirect("/account/alias/")
+        if Alias.query.filter(Alias._from == request.form["from"]).first() != None:
+            flash("Alias 'from' field already used.", "danger")
+            return redirect("/account/alias/")
         nalias = Alias(uid=session["user_id"], _from=request.form["from"], to=request.form["to"])
         db_session.add(nalias)
         db_session.commit()
