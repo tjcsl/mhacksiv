@@ -1,4 +1,9 @@
 {% extends 'navbar.html' %}
 {% block content %}
 <h1>Hello, {{ session.username }}</h1>
+<h2>Add phone</h2>
+<form action="/account/phones/add/" method="POST">
+    <input type="text" placeholder="+12022548273" name="phone" class="form-control" />
+    <input type="submit" value="Add phone" class="btn btn-primary" />
+</form>
 {% endblock %}
