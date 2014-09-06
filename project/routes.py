@@ -11,5 +11,6 @@ add_url_routes((
     ('/internal/call', twilioviews.call),
     ('/internal/text', twilioviews.text),
     ('/internal/rec', twilioviews.rec),
-    ('/', core.index)
+    ('/', core.index),
+    ('/about/', core.about)
 ))
