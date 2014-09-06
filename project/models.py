@@ -41,6 +41,7 @@ class User(Base):
 
 class Alias(Base):
     __tablename__ = 'aliases'
+    aid = Column(Integer, primary_key=True)
     uid = Column(Integer)
     _from = Column(String(64))
     to = Column(String(64))
@@ -55,6 +56,7 @@ class Alias(Base):
 
 class Phone(Base):
     __tablename__ = 'phones'
+    pid = Column(Integer, primary_key=True)
     uid = Column(Integer)
     phone_number = Column(String(24))
     confirmation = Column(String(7))
