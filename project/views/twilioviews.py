@@ -24,6 +24,8 @@ def handle_key():
         resp.say("Status over phone is not currently implemented.")
     elif digit_pressed == "0":
         resp.play("http://a.tumblr.com/tumblr_mascpn4kyJ1qejfr7o1.mp3")
+    elif digit_pressed == "4":
+        resp.play("http://queri.me/static/MLG.mp3")
     elif digit_pressed == "2":
         resp.record(timeout=10, transcribe=True,
                 transcribeCallback='http://queri.me/internal/rec')
