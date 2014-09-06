@@ -1,5 +1,5 @@
 from flask import render_template, request, session
-import project.utils.twilio
+import project.utils.twilioutil
 import random
 
 def account_view():
@@ -12,7 +12,7 @@ def add_phone():
         return redirect("/")
     phone = request.form["phone"]
     code = str(random.randint(0, 1000000)).zfill(6)
-    project.utils.twilio.send_text(phone, "Your queri confirmation code is %s" % code)
+    project.utils.twilioutil.send_text(phone, "Your queri confirmation code is %s" % code)
     flash("Check your phone for a confirmation code.", "success")
     return render_template("account.html")
 
