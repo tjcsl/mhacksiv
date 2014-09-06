@@ -3,6 +3,7 @@ import requests
 from ..utils.status import get_status
 from ..utils.reminders import create_reminder
 from ..utils.twilioutil import send_text
+from ..utils.files import find
 import twilio.twiml
 from twilio.rest import TwilioRestClient
 import json
@@ -84,9 +85,15 @@ def do_wit(body, phone, recording=False):
             date = dateutil.parser.parse(entities['time'][0]['value']['from'])
             text = entities['message'][0]['value']
             m = create_reminder(date, text, phone)
+        elif intent == 'find_file':
+            entities = jso['outcomes'][0]['entities']
+            server = entities['filelocation'][0]['value']
+            filename = entities['filename'][0]['value']
+            m = find(server, filename)
         else:
             m = "Hmm? Try again please :("
-    except:
+    except Exception, e:
+        print str(e)
         m = "Sorry, something bad happened. Try again a bit later."
     return m
 
