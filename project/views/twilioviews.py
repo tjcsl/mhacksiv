@@ -10,6 +10,7 @@ import json
 import dateutil.parser
 from flask import request
 from project.models import Phone
+import traceback
 
 ACCOUNT_SID = "ayylmao"
 AUTH_TOKEN = "ayylmao"
@@ -93,7 +94,7 @@ def do_wit(body, phone, recording=False):
         else:
             m = "Hmm? Try again please :("
     except Exception, e:
-        print str(e)
+        traceback.print_exc(e)
         m = "Sorry, something bad happened. Try again a bit later."
     return m
 
@@ -102,7 +103,8 @@ def text():
     phone = request.form.get('From','')
     try:
         m = do_wit(b, phone)
-    except:
+    except Exception, e:
+        traceback.print_exc(e)
         m = "Sorry, something bad happened. Try again a bit later."
 
     # Send to wit.ai for processing
