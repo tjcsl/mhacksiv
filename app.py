@@ -4,4 +4,4 @@ import os
 app = project.app
 app.debug = False
 
-app.run(port=os.getenv('PORT', 5000))
+app.run(host='0.0.0.0', port=int(os.getenv('PORT', 5000))
