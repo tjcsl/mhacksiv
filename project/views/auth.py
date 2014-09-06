@@ -56,8 +56,8 @@ def process_login():
             flash("Invalid username or password.", "danger")
         else:
             curruser = User.query.filter(User.username == request.form["username"]).first()
-            session.user_id = curruser.uid
-            session.username = curruser.username
+            session["user_id"] = curruser.uid
+            session["username"] = curruser.username
             flash("Successfully logged in.", "success")
             return redirect('/')
     return render_template("login.html")
