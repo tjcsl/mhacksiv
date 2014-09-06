@@ -7,6 +7,9 @@ certifi==14.05.14
 httplib2==0.9
 itsdangerous==0.24
 requests==2.4.0
+sendgrid==1.1.0
 six==1.7.3
+smtpapi==0.1.2
 twilio==3.6.7
+unittest2==0.5.1
 wsgiref==0.1.2
