@@ -26,4 +26,17 @@
         </div>
     </div>
 </form>
+<h2>Your phones</h2>
+<table class="table table-condensed table-hover">
+    <tr>
+        <th>Phone number</th>
+        <th>Is confirmed?</th>
+    </tr>
+    {% for phone in phones %}
+    <tr>
+        <td>{{ phone.phone_number }}</td>
+        <td>{{ "Yes" if phone.is_confirmed else "No" }}</td>
+    </tr>
+    {% endfor %}
+</table>
 {% endblock %}
