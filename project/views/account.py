@@ -3,6 +3,8 @@ from project.database import db_session
 from project.models import Phone
 import project.utils.twilioutil
 import random
+from project.models import User, Alias
+from project.database import db_session
 
 def account_view():
     if "username" not in session:
@@ -38,4 +40,19 @@ def confirm_phone():
 def aliases():
     if "username" not in session:
         return redirect("/")
-    return render_template("alias.html")
+    aliaslist = [(i._from, i.to) for i in Alias.query.filter(Alias.uid == session.user_id).all()]
+    return render_template("alias.html", aliases=aliaslist)
+
+def addalias():
+    if "username" not in session:
+        return redirect("/")
+    if not request.args or not "from" in request.args or not "to" in request.args:
+        return redirect("/account/alias/")
+    if len(request.args["from"]) > 64 or len(request.args["to"]) > 64:
+        flash("Alias field too long - max length is 64 characters.", "danger")
+        return redirect("/account/alias/")
+    nalias = Alias(uid=session["user_id"], _from=request.args["from"], to=request.args["to"])
+    db_session.add(nalias)
+    db_session.commit()
+    flash("Your alias was added.", "success")
+    return redirect("/account/alias/")
