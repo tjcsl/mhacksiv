@@ -68,29 +68,35 @@ def handle_key():
     return str(resp)
 
 def do_wit(body, phone, recording=False):
-    if not recording:
-        wit = requests.get('https://api.wit.ai/message?v=20140905&q=%s' % body, headers={'Authorization':'Bearer L3VB34V6YTDFO4BRXNDQNAYMVOOF4BHB'}).text
-    if recording:
-        wit = requests.post('https://api.wit.ai/speech', headers={'Authorization':'Bearer L3VB34V6YTDFO4BRXNDQNAYMVOOF4BHB', 'Content-Type': 'audio/wav'}, data=body).text
-    print wit
-    jso = json.loads(wit)
-    print str(jso)
-    intent = jso['outcomes'][0]['intent']
-    if intent == 'get_status':
-        m = get_status(wit, phone)
-    elif intent == 'remind':
-        entities = jso['outcomes'][0]['entities']
-        date = dateutil.parser.parse(entities['time'][0]['value']['from'])
-        text = entities['message'][0]['value']
-        m = create_reminder(date, text, phone)
-    else:
-        m = "Hmm? Try again please :("
+    try:
+        if not recording:
+            wit = requests.get('https://api.wit.ai/message?v=20140905&q=%s' % body, headers={'Authorization':'Bearer L3VB34V6YTDFO4BRXNDQNAYMVOOF4BHB'}).text
+        if recording:
+            wit = requests.post('https://api.wit.ai/speech', headers={'Authorization':'Bearer L3VB34V6YTDFO4BRXNDQNAYMVOOF4BHB', 'Content-Type': 'audio/wav'}, data=body).text
+        print wit
+        jso = json.loads(wit)
+        print str(jso)
+        intent = jso['outcomes'][0]['intent']
+        if intent == 'get_status':
+            m = get_status(wit, phone)
+        elif intent == 'remind':
+            entities = jso['outcomes'][0]['entities']
+            date = dateutil.parser.parse(entities['time'][0]['value']['from'])
+            text = entities['message'][0]['value']
+            m = create_reminder(date, text, phone)
+        else:
+            m = "Hmm? Try again please :("
+    except:
+        m = "Sorry, something bad happened. Try again a bit later."
     return m
 
 def text():
     b = request.form.get('Body','')
     phone = request.form.get('From','')
-    m = do_wit(b, phone)
+    try:
+        m = do_wit(b, phone)
+    except:
+        m = "Sorry, something bad happened. Try again a bit later."
 
     # Send to wit.ai for processing
     resp = twilio.twiml.Response()
