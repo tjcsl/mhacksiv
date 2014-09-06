@@ -17,5 +17,6 @@ add_url_routes((
     ('/login/', auth.login),
     ('/login/register/', auth.process_register),
     ('/login/login/', auth.process_login),
-    ('/verifyemail/', auth.verifyemail)
+    ('/verifyemail/', auth.verifyemail),
+    ('/logout/', auth.logout)
 ))

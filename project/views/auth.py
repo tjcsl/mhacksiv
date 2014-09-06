@@ -77,3 +77,8 @@ def verifyemail():
         flash("Account successfully activated. You're ready to log in!", "success")
         return redirect("/login/")
     return redirect('/')
+
+def logout():
+    session.pop('username', None)
+    session.pop('user_id', None)
+    return redirect('/')
