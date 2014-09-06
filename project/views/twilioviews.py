@@ -37,12 +37,13 @@ def handle_key_2():
         resp.play("http://queri.me/static/MLG.mp3")
     elif digit_pressed == "2":
         # 22884646#*
-        resp.gather(numDigits=9, action="/internal/konami", method="POST")
+        resp.gather(numDigits=9, action="/internal/konami", method="POST", finishOnKey='')
     else:
         return redirect('/internal/call')
     return str(resp)
 
 def konami():
+    print str(request.values
     digits_pressed = request.values.get('Digits', None)
     resp = twilio.twiml.Response()
     if digits_pressed == "2884646#*":
