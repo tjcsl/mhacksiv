@@ -47,7 +47,7 @@ class Alias(Base):
 
     def __init__(self, uid=None, _from=None, to=None):
         self.uid = uid
-        self._from = from
+        self._from = _from
         self.to = to
 
     def __repr__(self):
