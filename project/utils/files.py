@@ -5,4 +5,4 @@ def find(server, query, phone):
     server = get_alias(phone, server)
     query = query.replace(" ", "%20")
     r = requests.get("http://%s:5000/matchfile/%s/" % (server, query))
-    return r.json()["matches"][0]
+    return ("http://%s:5000" % server) + r.json()["matches"][0]
