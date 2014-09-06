@@ -35,9 +35,20 @@ def handle_key_2():
         resp.play("http://a.tumblr.com/tumblr_mascpn4kyJ1qejfr7o1.mp3")
     elif digit_pressed == "4":
         resp.play("http://queri.me/static/MLG.mp3")
+    elif digit_pressed == "2":
+        # 22884646#*
+        resp.gather(numDigits=9, action="/internal/konami", method="POST")
     else:
         return redirect('/internal/call')
     return str(resp)
+
+def konami():
+    digits_pressed = request.values.get('Digits', None)
+    resp = twilio.twiml.Response()
+    if digits_pressed == "2884646#*":
+        resp.say("Get shrecked mate!")
+        return str(resp)
+    return ''
 
 def handle_key():
     digit_pressed = request.values.get('Digits', None)
