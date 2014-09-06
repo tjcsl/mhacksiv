@@ -19,7 +19,6 @@ def call():
     phon = Phone.query.filter(Phone.phone_number == phone).first()
     if phon is None:
         resp.say("Please register your phone number at our website. Check your text messages for a link.")
-        resp.play("http://a.tumblr.com/tumblr_mascpn4kyJ1qejfr7o1.mp3")
         send_text(phone, "Register an account at http://queri.me/login/")
         return str(resp)
 
