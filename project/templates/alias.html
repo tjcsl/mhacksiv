@@ -15,10 +15,10 @@
         </tr>
         {% endfor %}
         <tr>
-			<form role="form" action="/account/addalias/" method="POST">
+			<form role="form" action="/account/alias/add/" method="POST">
 				<td><input type="text" class="form-control" name="from" /></td>
             	<td><input type="text" class="form-control" name="to"   /></td>
-            	<td><input type="submit" value="Create alias" class="btn btn-primary" /></td>
+				<td><button type="submit" class="btn btn-primary">Create alias</button></td>
 			</form>
         </tr>
     </form>
