@@ -2,6 +2,7 @@ from flask import request, redirect
 import requests
 from ..utils.status import get_status
 from ..utils.reminders import create_reminder
+from ..utils.twilioutil import send_text
 import twilio.twiml
 from twilio.rest import TwilioRestClient
 import json
@@ -17,7 +18,8 @@ def call():
     phone = request.form.get("From", "")
     phon = Phone.query.filter(Phone.phone_number == phone).first()
     if phon is None:
-        resp.say("Please register your phone number at our website.")
+        resp.say("Please register your phone number at our website. Check your text messages for a link.")
+        send_text(phone, "Register an accont at http://queri.me/login/")
         return str(resp)
 
     resp.say("Hello!")
