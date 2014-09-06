@@ -17,6 +17,7 @@ add_url_routes((
     ('/account/', account.account_view),
     ('/account/alias/', account.aliases),
     ('/account/phones/add/', account.add_phone),
+    ('/account/phones/confirm/', account.confirm_phone),
     ('/login/', auth.login),
     ('/login/register/', auth.process_register),
     ('/login/login/', auth.process_login),
