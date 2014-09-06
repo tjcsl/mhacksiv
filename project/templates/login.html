@@ -1,53 +1,64 @@
 {% extends 'navbar.html' %}
 {% set this_page_id = 'login' %}
+{% block head %}
+<script>
+    function validate() {
+        if($("#register-email-confirm").val() == $("#register-email").val() && $("#register-password").val() == $("#register-password-confirm").val()) {
+            return true;
+        }
+        alert("Emails or passwords did not match.");
+        return false;
+    }
+</script>
+{% endblock %}
 {% block content %}
 <div class="container-fluid">
     <div class="row">
-    	<div class="col-md-6">
-    		<div class="panel panel-primary">
-    			<div class="panel-heading">
-   					<h3 class="panel-title">Log in</h3>
-    			</div>
-    			<div class="panel-body">
-					<form role="form">
-						<div class="form-group">
-							<input type="text" class="form-control" id="login-username" placeholder="Username">
-						</div>
-						<div class="form-group">
-							<input type="password" class="form-control" id="login-password" placeholder="Password">
-						</div>
-						<button type="submit" class="btn btn-success">Log in</button>
-					</form>
-				</div>
-			</div>
-    	</div>
-    	<div class="col-md-6">
-    		<div class="panel panel-primary">
-    			<div class="panel-heading">
-    				<h3 class="panel-title">Register an account</h3>
-    			</div>
-    			<div class="panel-body">
-					<form role="form">
-						<div class="form-group">
-							<input type="text" class="form-control" id="register-username" placeholder="Username">
-						</div>
-						<div class="form-group">
-							<input type="email" class="form-control" id="register-email" placeholder="Email">
-						</div>
-						<div class="form-group">
-							<input type="email" class="form-control" id="register-email-confirm" placeholder="Confirm email">
-						</div>
-						<div class="form-group">
-							<input type="password" class="form-control" id="register-password" placeholder="Password">
-						</div>
-						<div class="form-group">
-							<input type="password" class="form-control" id="register-password-confirm" placeholder="Password">
-						</div>
-						<button type="submit" class="btn btn-success">Register</button>
-					</form>
-				</div>
-			</div>
-    	</div>
+        <div class="col-md-6">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Log in</h3>
+                </div>
+                <div class="panel-body">
+                    <form role="form" action="/login/login/" method="POST">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="login-username" name="username" placeholder="Username">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" id="login-password" name="password" placeholder="Password">
+                        </div>
+                        <button type="submit" class="btn btn-success">Log in</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Register an account</h3>
+                </div>
+                <div class="panel-body">
+                    <form role="form" onsubmit="validate();" action="/login/register/" method="POST">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="register-username" name="username" placeholder="Username">
+                        </div>
+                        <div class="form-group">
+                            <input type="email" class="form-control" id="register-email" name="email" placeholder="Email">
+                        </div>
+                        <div class="form-group">
+                            <input type="email" class="form-control" id="register-email-confirm" name="email-confirm" placeholder="Confirm email">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" id="register-password" name="password" placeholder="Password">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" id="register-password-confirm" name="password-confirm" placeholder="Confirm password">
+                        </div>
+                        <button type="submit" class="btn btn-success">Register</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}
