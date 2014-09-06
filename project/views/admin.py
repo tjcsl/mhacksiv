@@ -18,6 +18,8 @@ def users():
     return render_template("admin-users.html", users=users)
 
 def delete(uid):
+    if "username" not in session or "admin" not in session or not session["admin"]:
+        return redirect('/')
     duser = User.query.filter(User.uid == uid).first()
     if duser is None:
         flash("No such user.", "danger")
@@ -28,6 +30,8 @@ def delete(uid):
     return redirect('/admin/users/')
 
 def disable(uid):
+    if "username" not in session or "admin" not in session or not session["admin"]:
+        return redirect('/')
     u = User.query.filter(User.uid == uid).first()
     if u is None:
         flash("No such user.", "danger")
@@ -38,6 +42,8 @@ def disable(uid):
     return redirect('/admin/users/')
 
 def enable(uid):
+    if "username" not in session or "admin" not in session or not session["admin"]:
+        return redirect('/')
     u = User.query.filter(User.uid == uid).first()
     if u is None:
         flash("No such user.", "danger")
@@ -48,6 +54,8 @@ def enable(uid):
     return redirect('/admin/users/')
 
 def promote(uid):
+    if "username" not in session or "admin" not in session or not session["admin"]:
+        return redirect('/')
     u = User.query.filter(User.uid == uid).first()
     if u is None:
         flash("No such user.", "danger")
@@ -58,6 +66,8 @@ def promote(uid):
     return redirect('/admin/users/')
 
 def demote(uid):
+    if "username" not in session or "admin" not in session or not session["admin"]:
+        return redirect('/')
     u = User.query.filter(User.uid == uid).first()
     if u is None:
         flash("No such user.", "danger")
