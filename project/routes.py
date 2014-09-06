@@ -17,6 +17,7 @@ add_url_routes((
     ('/account/', account.account_view),
     ('/account/alias/', account.aliases),
     ('/account/alias/add/', account.addalias),
+    ('/account/alias/del/<int:aid>', account.delalias),
     ('/account/phones/add/', account.add_phone),
     ('/account/phones/confirm/', account.confirm_phone),
     ('/account/phones/del/<int:pid>/', account.delete_phone),

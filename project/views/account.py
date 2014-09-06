@@ -53,7 +53,7 @@ def delete_phone(pid):
 def aliases():
     if "username" not in session:
         return redirect("/")
-    aliaslist = [(i._from, i.to) for i in Alias.query.filter(Alias.uid == session["user_id"]).all()]
+    aliaslist = [(i._from, i.to, i.aid) for i in Alias.query.filter(Alias.uid == session["user_id"]).all()]
     return render_template("alias.html", aliases=aliaslist)
 
 def addalias():
@@ -69,4 +69,16 @@ def addalias():
         db_session.add(nalias)
         db_session.commit()
         flash("Your alias was added.", "success")
+    return redirect("/account/alias/")
+
+def delalias(aid):
+    if "username" not in session:
+        return redirect("/")
+    tdalias = Alias.query.filter(Alias.aid == aid).first()
+    if tdalias.uid != session["user_id"]:
+        flash("You don't own that alias!", "danger")
+        return redirect('/account/alias/')
+    db_session.delete(tdalias)
+    db_session.commit()
+    flash("Your alias was deleted.", "success")
     return redirect("/account/alias/")
