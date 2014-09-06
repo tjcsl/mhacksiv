@@ -12,20 +12,26 @@ def call():
             transcribeCallback='http://queri.me/rec', )
     return str(resp)
 
-def text():
-    b = request.form.get('Body','')
-    phone = request.form.get('From','')
-    wit = requests.get('https://api.wit.ai/message?v=20140905&q=%s' % b, headers={'Authorization':'Bearer L3VB34V6YTDFO4BRXNDQNAYMVOOF4BHB'}).text
-    intent = json.loads(wit)['outcomes'][0]['intent']
+def do_wit(body, phone):
+    wit = requests.get('https://api.wit.ai/message?v=20140905&q=%s' % body, headers={'Authorization':'Bearer L3VB34V6YTDFO4BRXNDQNAYMVOOF4BHB'}).text
+    jso = json.loads(wit)
+    print str(jso)
+    intent = jso['outcomes'][0]['intent']
     if intent == 'get_status':
         m = get_status(wit, phone)
     elif intent == 'remind':
-        entities = json.loads(wit)['outcomes'][0]['entities']
+        entities = jso['outcomes'][0]['entities']
         date = dateutil.parser.parse(entities['time'][0]['value']['from'])
         text = entities['message'][0]['value']
         m = create_reminder(date, text, phone)
     else:
         m = "Hmm? Try again please :("
+    return m
+
+def text():
+    b = request.form.get('Body','')
+    phone = request.form.get('From','')
+    m = do_wit(b, phone)
 
     # Send to wit.ai for processing
     resp = twilio.twiml.Response()
@@ -34,4 +40,5 @@ def text():
 
 def rec():
     print request.form.get('TranscriptionText','')
+    m = do_wit(request.form.get('TranscriptionText',''),request.form.get('From',''))
     return ''
