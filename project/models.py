@@ -38,3 +38,17 @@ class User(Base):
     def __repr__(self):
         return "<User '%s' (id %d), phone: %s, enabled: %s" % (self.username,
                 self.uid, self.phone, self.enabled)
+
+class Alias(Base):
+    __tablename__ = 'aliases'
+    uid = Column(Integer)
+    from = Column(String(64))
+    to = Column(String(64))
+
+    def __init__(self, uid=None, from=None, to=None):
+        self.uid = uid
+        self.from = from
+        self.to = to
+
+    def __repr__(self):
+        return "<Alias %s to %s (uid %d)" % (self.from, self.to, self.uid)
