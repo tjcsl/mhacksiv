@@ -45,7 +45,7 @@ this link to verify your email address: http://queri.me/verifyemail?user=%s&key=
                     return render_template("login.html")
                 newuser = User(username=request.form["username"], email=request.form["email"],
                         pwhash=hashlib.sha256(request.form["password"]).hexdigest(),
-                        reg_uuid=str(reguuid))
+                        reg_uuid=str(reguuid), enabled=False)
                 db_session.add(newuser)
                 db_session.commit()
                 flash("Account successfully created. Please check your email for activation instructions.", "success")
