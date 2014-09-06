@@ -10,7 +10,7 @@ import hashlib
 def users():
     if "username" not in session:
         return redirect('/')
-    if not session["admin"]:
+    if "admin" not in session or not session["admin"]:
         flash("Hey, no peeking!", "warning")
         return redirect('/')
     rawusers = User.query.order_by(User.uid).all()
