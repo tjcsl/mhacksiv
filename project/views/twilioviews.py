@@ -6,12 +6,20 @@ import twilio.twiml
 from twilio.rest import TwilioRestClient
 import json
 import dateutil.parser
+from flask import request
+from project.models import Phone
 
 ACCOUNT_SID = "ayylmao"
 AUTH_TOKEN = "ayylmao"
 
 def call():
     resp = twilio.twiml.Response()
+    phone = request.form["from"]
+    phon = Phone.query.filter(Phone.phone_number == phone).first()
+    if phon is None:
+        resp.say("Please register your phone number at our website.")
+        return str(resp)
+
     resp.say("Hello!")
     with resp.gather(numDigits=1, action="/internal/handle-key", method="POST") as g:
         g.say("To get the status of a machine or set a reminder, press 1.")
