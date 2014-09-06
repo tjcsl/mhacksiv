@@ -17,7 +17,7 @@ def call():
     resp = twilio.twiml.Response()
     phone = request.form.get("From", "")
     phon = Phone.query.filter(Phone.phone_number == phone).first()
-    if phon is None:
+    if phon is None or not phon.is_confirmed:
         send_text(phone, "Register an account at http://queri.me/login/")
         with resp.gather(numDigits=1, action="/internal/handle-key-2", method="POST") as g:
             g.say("Please register your phone number at our website. Check your text messages for a link.")
