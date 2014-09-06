@@ -3,8 +3,12 @@ import requests
 from ..utils.status import get_status
 from ..utils.reminders import create_reminder
 import twilio.twiml
+from twilio.rest import TwilioRestClient
 import json
 import dateutil.parser
+
+ACCOUNT_SID = "ayylmao"
+AUTH_TOKEN = "ayylmao"
 
 def call():
     resp = twilio.twiml.Response()
@@ -41,4 +45,6 @@ def text():
 def rec():
     print request.form.get('TranscriptionText','')
     m = do_wit(request.form.get('TranscriptionText',''),request.form.get('From',''))
+    client = TwilioRestClient(account_sid, auth_token)
+    message = client.messages.create(from_="+15172194225", to=request.form.get('From',''), body=m)
     return ''
