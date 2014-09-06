@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, DateTime
+from sqlalchemy import Column, Integer, String, DateTime, Boolean
 from project.database import Base
 
 class Reminder(Base):
@@ -15,3 +15,24 @@ class Reminder(Base):
 
     def __repr__(self):
         return "<Reminder on %s (%s)>" % (self.date, self.text)
+
+class User(Base):
+    __tablename__ = 'users'
+    uid = Column(Integer, primary_key = True)
+    username = Column(String(32))
+    pwhash = Column(String(128))
+    reg_uuid = Column(String(37))
+    enabled = Column(Boolean)
+    phone = Column(String(24))
+
+    def __init__(self, username=None, pwhash=None, reg_uuid=None, enabled=True,
+            phone=None):
+        self.username = username
+        self.pwhash = pwhash
+        self.reg_uuid = reg_uuid
+        self.enabled = enabled
+        self.phone = phone
+
+    def __repr__(self):
+        return "<User '%s' (id %d), phone: %s, enabled: %s" % (self.username,
+                self.uid, self.phone, self.enabled)
