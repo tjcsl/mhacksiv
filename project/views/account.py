@@ -60,7 +60,7 @@ def addalias():
     if "username" not in session:
         return redirect("/")
     if not request.args or not "from" in request.args or not "to" in request.args:
-        flash("path issue: %s %s" % (request.args["from"], request.args["to"], "warning")
+        flash("path issue: %s %s" % (request.args["from"], request.args["to"]), "warning")
         return redirect("/account/alias/")
     if len(request.args["from"]) > 64 or len(request.args["to"]) > 64:
         flash("Alias field too long - max length is 64 characters.", "danger")
