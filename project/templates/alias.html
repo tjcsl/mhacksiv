@@ -6,21 +6,19 @@
         <th>To</th>
         <th>Utilities</th>
     </tr>
-    <form>
-        {% for i in aliases %}
-        <tr>
-            <td>{{ i[0] }}</td>
-            <td>{{ i[1] }}</td>
-            <td></td>
-        </tr>
-        {% endfor %}
-        <tr>
-			<form role="form" action="/account/alias/add/" method="POST">
-				<td><input type="text" class="form-control" name="from" /></td>
-            	<td><input type="text" class="form-control" name="to"   /></td>
-				<td><button type="submit" class="btn btn-primary">Create alias</button></td>
-			</form>
-        </tr>
-    </form>
+    {% for i in aliases %}
+    <tr>
+        <td>{{ i[0] }}</td>
+        <td>{{ i[1] }}</td>
+        <td></td>
+    </tr>
+    {% endfor %}
+    <tr>
+		<form role="form" action="/account/alias/add/" method="POST">
+			<td><input type="text" class="form-control" name="from" /></td>
+        	<td><input type="text" class="form-control" name="to"   /></td>
+			<td><button type="submit" class="btn btn-primary">Create alias</button></td>
+		</form>
+    </tr>
 </table>
 {% endblock %}
