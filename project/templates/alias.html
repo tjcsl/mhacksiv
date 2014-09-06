@@ -1,0 +1,17 @@
+{% extends 'navbar.html' %}
+{% block content %}
+<table class="table table-bordered table-roundedtable-hover">
+    <tr>
+        <th>From</th>
+        <th>To</th>
+        <th>Utilities</th>
+    </tr>
+    <form>
+        <tr>
+            <td><input type="text" class="form-control" name="from" /></td>
+            <td><input type="text" class="form-control" name="to"   /></td>
+            <td><input type="submit" value="Create alias" class="btn btn-primary" /></td>
+        </tr>
+    </form>
+</table>
+{% endblock %}
