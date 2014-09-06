@@ -37,16 +37,14 @@ this link to verify your email address: http://queri.me/verifyemail?user=%s&key=
                 try:
                     sgclient.send(regmail)
                 except:
-                    flash("An error occurred sending your confirmation email.
-                            Please try again.", "danger")
+                    flash("An error occurred sending your confirmation email. Please try again.", "danger")
                     return render_template("login.html")
                 newuser = User(username=request.form["username"], email=request.form["email"],
                         pwhash=hashlib.sha256(request.form["password"]).hexdigest(),
                         reg_uuid=reguuid)
                 db_session.add(newuser)
                 db_session.commit()
-                flash("Account successfully created. Please check your email
-                        for activation instructions.", "success")
+                flash("Account successfully created. Please check your email for activation instructions.", "success")
                 return render_template('/')
     return render_template("login.html")
 
