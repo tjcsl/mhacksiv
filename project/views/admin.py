@@ -13,7 +13,7 @@ def users():
     if not session["admin"]:
         flash("Hey, no peeking!", "warning")
         return redirect('/')
-    rawusers = User.query.all()
+    rawusers = User.query.order_by(User.uid).all()
     users = [(u.uid, u.username, u.email, u.enabled, u.admin) for u in rawusers]
     return render_template("admin-users.html", users=users)
 
