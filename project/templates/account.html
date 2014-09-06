@@ -3,7 +3,13 @@
 <h1>Hello, {{ session.username }}</h1>
 <h2>Add phone</h2>
 <form action="/account/phones/add/" method="POST">
-    <input type="text" placeholder="+12022548273" name="phone" class="form-control" />
-    <input type="submit" value="Add phone" class="btn btn-primary" />
+    <div class="row row-fluid">
+        <div class="col-sm-9">
+            <input type="text" placeholder="+12022548273" name="phone" class="form-control" />
+        </div>
+        <div class="col-sm-3">
+            <input type="submit" value="Add phone" class="btn btn-primary" />
+        </div>
+    </div>
 </form>
 {% endblock %}
