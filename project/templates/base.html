@@ -1,0 +1,23 @@
+{% set title="queri.me" %}
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>{{ title }}</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap.css') }}" />
+		<script src="{{ url_for('static', filename='bootstrap.js') }}"></script>
+		<style type="text/css">
+			html, body, .container {
+				height: 100%;
+			}
+			.jumbotron {
+				color: #006ddb;
+				background-color: #F7EFE6;
+			}
+		</style>
+		{% block head %}{% endblock %}
+	</head>
+	<body>
+		{% block body %}{% endblock %}
+	</body>
+</html>

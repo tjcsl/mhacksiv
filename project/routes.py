@@ -10,5 +10,6 @@ def add_url_routes(routes_tuple):
 add_url_routes((
     ('/internal/call', twilioviews.call),
     ('/internal/text', twilioviews.text),
-    ('/internal/rec', twilioviews.rec)
+    ('/internal/rec', twilioviews.rec),
+    ('/', core.index)
 ))
