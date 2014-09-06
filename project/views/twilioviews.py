@@ -1,4 +1,4 @@
-from flask import request
+from flask import request, redirect
 import requests
 from ..utils.status import get_status
 from ..utils.reminders import create_reminder
@@ -12,8 +12,20 @@ AUTH_TOKEN = "ayylmao"
 
 def call():
     resp = twilio.twiml.Response()
-    resp.record(timeout=10, transcribe=True,
+    resp.say("Hello.")
+    with resp.gather(numDigits=1, action="/internal/handle-key", method="POST") as g:
+        g.say("To enter a command, press 1. To get spooked, press 2.")
+    return str(resp)
+
+def handle_key():
+    digit_pressed = request.values.get('Digits', None)
+    if digit_pressed == "1":
+        resp.record(timeout=10, transcribe=True,
             transcribeCallback='http://queri.me/internal/rec', )
+    elif digit_pressed == "2":
+        resp.play("http://a.tumblr.com/tumblr_mascpn4kyJ1qejfr7o1.mp3")
+    else:
+        return redirect('/internal/call')
     return str(resp)
 
 def do_wit(body, phone):
