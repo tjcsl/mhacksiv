@@ -11,10 +11,17 @@ def phone_view():
         return redirect("/")
     return render_template("phones.html", phones=Phone.query.filter(Phone.uid == session["user_id"]).all())
 
+def fix_phone(phon):
+    if phon[0] == "+":
+        return phon
+    if len(phon) == 10:
+        return "+1%s" % phon
+    return phon
+
 def add_phone():
     if "username" not in session:
         return redirect("/")
-    phone = request.form["phone"]
+    phone = fix_phone(request.form["phone"])
     code = str(random.randint(0, 1000000)).zfill(6)
     project.utils.twilioutil.send_text(phone, "Your queri confirmation code is %s" % code)
     phon = Phone(session["user_id"], phone, code)
@@ -26,7 +33,7 @@ def add_phone():
 def confirm_phone():
     if "username" not in session:
         return redirect("/")
-    phone = request.form["phone"]
+    phone = fix_phone(request.form["phone"])
     code = request.form["code"]
     phon = Phone.query.filter(Phone.phone_number == phone and Phone.confirmation == code).first()
     if phon is None:
