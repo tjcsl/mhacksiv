@@ -2,7 +2,6 @@
 {% set navbar = [
 (url_for('index'), 'home', 'Home', True),
 ('/about/', 'about', 'About', True),
-('/account/', 'account', 'Account', session.user_id),
 ] -%}
 
 {% set this_page_id = this_page_id | default('home') %}
@@ -31,6 +30,13 @@
                                 </li>
                             {% endif %}
                         {% endfor %}
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Account <span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="/account/phones/">Phones</a></li>
+                                <li><a href="/account/alias/">Aliases</a></li>
+                            </ul>
+                        </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         {% if not session.user_id %}

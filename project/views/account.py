@@ -6,10 +6,10 @@ import random
 from project.models import User, Alias
 from project.database import db_session
 
-def account_view():
+def phone_view():
     if "username" not in session:
         return redirect("/")
-    return render_template("account.html", phones=Phone.query.filter(Phone.uid == session["user_id"]).all())
+    return render_template("phones.html", phones=Phone.query.filter(Phone.uid == session["user_id"]).all())
 
 def add_phone():
     if "username" not in session:
@@ -21,7 +21,7 @@ def add_phone():
     db_session.add(phon)
     db_session.commit()
     flash("Check your phone for a confirmation code.", "success")
-    return render_template("account.html")
+    return render_template("phones.html")
 
 def confirm_phone():
     if "username" not in session:
@@ -31,11 +31,11 @@ def confirm_phone():
     phon = Phone.query.filter(Phone.phone_number == phone and Phone.confirmation == code).first()
     if phon is None:
         flash("No phone found.", "danger")
-        return render_template("account.html")
+        return render_template("phones.html")
     phon.is_confirmed = True
     db_session.commit()
     flash("Phone <!-- illuminati --> confirmed.", "success")
-    return render_template("account.html")
+    return render_template("phones.html")
 
 def delete_phone(pid):
     if "username" not in session:
@@ -48,7 +48,7 @@ def delete_phone(pid):
         db_session.delete(phon)
         db_session.commit()
     flash("Phone deleted.", "success")
-    return redirect("/account/")
+    return redirect("/account/phones/")
 
 def aliases():
     if "username" not in session:
