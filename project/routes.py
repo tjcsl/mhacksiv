@@ -12,6 +12,7 @@ add_url_routes((
     ('/internal/text', twilioviews.text),
     ('/internal/rec', twilioviews.rec),
     ('/internal/handle-key', twilioviews.handle_key),
+    ('/internal/handle-key-2', twilioviews.handle_key_2),
     ('/', core.index),
     ('/about/', core.about),
     ('/account/alias/', account.aliases),

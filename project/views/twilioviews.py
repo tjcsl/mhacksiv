@@ -18,14 +18,25 @@ def call():
     phone = request.form.get("From", "")
     phon = Phone.query.filter(Phone.phone_number == phone).first()
     if phon is None:
-        resp.say("Please register your phone number at our website. Check your text messages for a link.")
         send_text(phone, "Register an account at http://queri.me/login/")
+        with resp.gather(numDigits=1, action="/internal/handle-key-2", method="POST") as g:
+            g.say("Please register your phone number at our website. Check your text messages for a link.")
         return str(resp)
 
     resp.say("Hello!")
     with resp.gather(numDigits=1, action="/internal/handle-key", method="POST") as g:
         g.say("To get the status of a machine or set a reminder, press 1.")
     return str(resp)
+
+def handle_key_2():
+    digit_pressed = request.values.get('Digits', None)
+    resp = twilio.twiml.Response()
+    if digit_pressed == "0":
+        resp.play("http://a.tumblr.com/tumblr_mascpn4kyJ1qejfr7o1.mp3")
+    elif digit_pressed == "4":
+        resp.play("http://queri.me/static/MLG.mp3")
+    else:
+        return redirect('/internal/call')
 
 def handle_key():
     digit_pressed = request.values.get('Digits', None)
