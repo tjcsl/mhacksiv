@@ -1,7 +1,14 @@
 import json
 import requests
+from project.models import Phone, Alias
 def get_alias(phone, shortname):
-    return shortname
+    phon = Phone.query.filter(Phone.phone_number == phone).first()
+    if phon is None:
+        return shortname
+    alis = Alias.query.filter(Alias.uid == phon.uid and Alias._from == shortname).first()
+    if alis is None:
+        return shortname
+    return alis.to
 
 def get_status(wit_json, phone):
     wit_json = json.loads(wit_json)
