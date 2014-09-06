@@ -17,3 +17,5 @@ def init_db():
     # you will have to import them first before calling init_db()
     import project.models
     Base.metadata.create_all(bind=engine)
+
+init_db()
