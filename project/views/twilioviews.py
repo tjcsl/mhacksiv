@@ -43,7 +43,6 @@ def handle_key_2():
     return str(resp)
 
 def konami():
-    print str(request.values
     digits_pressed = request.values.get('Digits', None)
     resp = twilio.twiml.Response()
     if digits_pressed == "2884646#*":
