@@ -19,6 +19,7 @@ def call():
 
 def handle_key():
     digit_pressed = request.values.get('Digits', None)
+    resp = twilio.twiml.Response()
     if digit_pressed == "1":
         resp.record(timeout=10, transcribe=True,
             transcribeCallback='http://queri.me/internal/rec', )
