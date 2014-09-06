@@ -45,6 +45,6 @@ def text():
 def rec():
     print request.form.get('TranscriptionText','')
     m = do_wit(request.form.get('TranscriptionText',''),request.form.get('From',''))
-    client = TwilioRestClient(account_sid, auth_token)
+    client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
     message = client.messages.create(from_="+15172194225", to=request.form.get('From',''), body=m)
     return ''
