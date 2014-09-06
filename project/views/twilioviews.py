@@ -31,7 +31,7 @@ def handle_key():
         return redirect('/internal/call')
     return str(resp)
 
-def do_wit(body, phone):
+def do_wit(body, phone, recording=False):
     if not recording:
         wit = requests.get('https://api.wit.ai/message?v=20140905&q=%s' % body, headers={'Authorization':'Bearer L3VB34V6YTDFO4BRXNDQNAYMVOOF4BHB'}).text
     if recording:
