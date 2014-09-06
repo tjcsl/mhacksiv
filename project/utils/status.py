@@ -1,7 +1,6 @@
 import json
 import requests
 from project.models import Phone, Alias
-from sqlalchemy import _and
 def get_alias(phone, shortname):
     phon = Phone.query.filter(Phone.phone_number == phone).first()
     if phon is None:
