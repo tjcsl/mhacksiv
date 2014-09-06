@@ -46,7 +46,7 @@ def konami():
     digits_pressed = request.values.get('Digits', None)
     resp = twilio.twiml.Response()
     if digits_pressed == "2884646#*":
-        resp.say("Get shrecked mate!")
+        resp.play("http://queri.me/static/contra.mp3")
         return str(resp)
     return ''
 
