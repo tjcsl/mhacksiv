@@ -14,7 +14,7 @@ AUTH_TOKEN = "ayylmao"
 
 def call():
     resp = twilio.twiml.Response()
-    phone = request.form["from"]
+    phone = request.form.get("From", "")
     phon = Phone.query.filter(Phone.phone_number == phone).first()
     if phon is None:
         resp.say("Please register your phone number at our website.")
