@@ -7,7 +7,7 @@ import random
 def account_view():
     if "username" not in session:
         return redirect("/")
-    return render_template("account.html")
+    return render_template("account.html", phones=Phone.query.filter(Phone.uid == session["user_id"]).all())
 
 def add_phone():
     if "username" not in session:
