@@ -1,6 +1,6 @@
 from project import app
 
-from project.views import twilio
+from project.views import twilioviews
 
 def add_url_routes(routes_tuple):
     for route, view_function in routes_tuple:
@@ -8,7 +8,7 @@ def add_url_routes(routes_tuple):
                 methods=["GET", "POST"])
 
 add_url_routes((
-    ('/internal/call', twilio.call),
-    ('/internal/text', twilio.text),
-    ('/internal/rec', twilio.rec)
+    ('/internal/call', twilioviews.call),
+    ('/internal/text', twilioviews.text),
+    ('/internal/rec', twilioviews.rec)
 ))
