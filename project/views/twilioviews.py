@@ -12,19 +12,21 @@ AUTH_TOKEN = "ayylmao"
 
 def call():
     resp = twilio.twiml.Response()
-    resp.say("Hello.")
+    resp.say("Hello!")
     with resp.gather(numDigits=1, action="/internal/handle-key", method="POST") as g:
-        g.say("To enter a command, press 1. To get spooked, press 2.")
+        g.say("To get the status of a machine, press 1. To set a reminder, press 2.")
     return str(resp)
 
 def handle_key():
     digit_pressed = request.values.get('Digits', None)
     resp = twilio.twiml.Response()
     if digit_pressed == "1":
-        resp.record(timeout=10, transcribe=True,
-            transcribeCallback='http://queri.me/internal/rec', )
-    elif digit_pressed == "2":
+        resp.say("Status over phone is not currently implemented.")
+    elif digit_pressed == "0":
         resp.play("http://a.tumblr.com/tumblr_mascpn4kyJ1qejfr7o1.mp3")
+    elif digit_pressed == "2":
+        resp.record(timeout=10, transcribe=True,
+                transcribeCallback='http://queri.me/internal/rec')
     else:
         return redirect('/internal/call')
     return str(resp)
