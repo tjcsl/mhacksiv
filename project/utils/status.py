@@ -10,4 +10,7 @@ def get_status(wit_json, phone):
     status_entity = entities["status_item"][0]["value"]
     server = get_alias(phone, server)
     resp = requests.get("http://%s:5000/%s/" % (server, status_entity)).json()
-    return resp["format_string"] % resp["value"]
+    if type(resp) == list:
+        return "\n".join([i["format_string"] % i["value"] for i in resp])
+    else:
+        return resp["format_string"] % resp["value"]
