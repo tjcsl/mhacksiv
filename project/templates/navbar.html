@@ -7,6 +7,9 @@
 {% set this_page_id = this_page_id | default('home') %}
 
 {% block head %}
+    <script>
+    $('body').on('touchstart.dropdown', '.dropdown-menu', function(e) { e.stopPropagation(); });
+    </script>
     {% block headadditions %}
     {% endblock %}
 {% endblock %}
