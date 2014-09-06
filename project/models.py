@@ -25,15 +25,17 @@ class User(Base):
     reg_uuid = Column(String(37))
     enabled = Column(Boolean)
     phone = Column(String(24))
+    admin = Column(Boolean)
 
     def __init__(self, username=None, email=None, pwhash=None, reg_uuid=None, enabled=True,
-            phone=None):
+            phone=None, admin=False):
         self.username = username
         self.email = email
         self.pwhash = pwhash
         self.reg_uuid = reg_uuid
         self.enabled = enabled
         self.phone = phone
+        self.admin = admin
 
     def __repr__(self):
         return "<User '%s' (id %d), phone: %s, enabled: %s" % (self.username,
