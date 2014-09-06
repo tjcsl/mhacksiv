@@ -89,7 +89,7 @@ def do_wit(body, phone, recording=False):
             entities = jso['outcomes'][0]['entities']
             server = entities['filelocation'][0]['value']
             filename = entities['filename'][0]['value']
-            m = find(server, filename)
+            m = find(server, filename, phone)
         else:
             m = "Hmm? Try again please :("
     except Exception, e:
