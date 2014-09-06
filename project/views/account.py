@@ -6,10 +6,10 @@ import random
 from project.models import User, Alias
 from project.database import db_session
 
-def account_view():
+def phone_view():
     if "username" not in session:
         return redirect("/")
-    return render_template("account.html", phones=Phone.query.filter(Phone.uid == session["user_id"]).all())
+    return render_template("phones.html", phones=Phone.query.filter(Phone.uid == session["user_id"]).all())
 
 def add_phone():
     if "username" not in session:
@@ -48,12 +48,12 @@ def delete_phone(pid):
         db_session.delete(phon)
         db_session.commit()
     flash("Phone deleted.", "success")
-    return redirect("/account/")
+    return redirect("/account/phones/")
 
 def aliases():
     if "username" not in session:
         return redirect("/")
-    aliaslist = [(i._from, i.to) for i in Alias.query.filter(Alias.uid == session["user_id"]).all()]
+    aliaslist = [(i._from, i.to, i.aid) for i in Alias.query.filter(Alias.uid == session["user_id"]).all()]
     return render_template("alias.html", aliases=aliaslist)
 
 def addalias():
@@ -65,8 +65,23 @@ def addalias():
         if len(request.form["from"]) > 64 or len(request.form["to"]) > 64:
             flash("Alias field too long - max length is 64 characters.", "danger")
             return redirect("/account/alias/")
+        if Alias.query.filter(Alias._from == request.form["from"]).first() != None:
+            flash("Alias 'from' field already used.", "danger")
+            return redirect("/account/alias/")
         nalias = Alias(uid=session["user_id"], _from=request.form["from"], to=request.form["to"])
         db_session.add(nalias)
         db_session.commit()
         flash("Your alias was added.", "success")
+    return redirect("/account/alias/")
+
+def delalias(aid):
+    if "username" not in session:
+        return redirect("/")
+    tdalias = Alias.query.filter(Alias.aid == aid).first()
+    if tdalias.uid != session["user_id"]:
+        flash("You don't own that alias!", "danger")
+        return redirect('/account/alias/')
+    db_session.delete(tdalias)
+    db_session.commit()
+    flash("Your alias was deleted.", "success")
     return redirect("/account/alias/")
