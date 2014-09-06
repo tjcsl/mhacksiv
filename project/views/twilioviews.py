@@ -14,28 +14,28 @@ def call():
     resp = twilio.twiml.Response()
     resp.say("Hello!")
     with resp.gather(numDigits=1, action="/internal/handle-key", method="POST") as g:
-        g.say("To get the status of a machine, press 1. To set a reminder, press 2.")
+        g.say("To get the status of a machine or set a reminder, press 1.")
     return str(resp)
 
 def handle_key():
     digit_pressed = request.values.get('Digits', None)
     resp = twilio.twiml.Response()
     if digit_pressed == "1":
-        resp.record(timeout=10, transcribe=True,
-                transcribeCallback='http://queri.me/internal/rec')
+        resp.say("Make your request, then press any key.")
+        resp.record(timeout=10, action='http://queri.me/internal/rec')
     elif digit_pressed == "0":
         resp.play("http://a.tumblr.com/tumblr_mascpn4kyJ1qejfr7o1.mp3")
     elif digit_pressed == "4":
         resp.play("http://queri.me/static/MLG.mp3")
-    elif digit_pressed == "2":
-        resp.record(timeout=10, transcribe=True,
-                transcribeCallback='http://queri.me/internal/rec')
     else:
         return redirect('/internal/call')
     return str(resp)
 
 def do_wit(body, phone):
-    wit = requests.get('https://api.wit.ai/message?v=20140905&q=%s' % body, headers={'Authorization':'Bearer L3VB34V6YTDFO4BRXNDQNAYMVOOF4BHB'}).text
+    if not recording:
+        wit = requests.get('https://api.wit.ai/message?v=20140905&q=%s' % body, headers={'Authorization':'Bearer L3VB34V6YTDFO4BRXNDQNAYMVOOF4BHB'}).text
+    if recording:
+        wit = requests.post('https://api.wit.ai/speech', headers={'Authorization':'Bearer L3VB34V6YTDFO4BRXNDQNAYMVOOF4BHB', 'Content-Type': 'audio/wav'}, files={'file.wav':body}).text
     jso = json.loads(wit)
     print str(jso)
     intent = jso['outcomes'][0]['intent']
@@ -61,8 +61,9 @@ def text():
     return str(resp)
 
 def rec():
-    print request.form.get('TranscriptionText','')
-    m = do_wit(request.form.get('TranscriptionText',''),request.form.get('From',''))
+    resp = twilio.twiml.Response()
+    recording = requests.get(request.form.get('RecordingUrl',''), stream=True).content
+    m = do_wit(recording,request.form.get('From',''),recording=True)
     client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
     message = client.messages.create(from_="+15172194225", to=request.form.get('From',''), body=m)
     return ''
