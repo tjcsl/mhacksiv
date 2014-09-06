@@ -9,7 +9,7 @@ from datetime import datetime
 def call():
     resp = twilio.twiml.Response()
     resp.record(timeout=10, transcribe=True,
-            transcribeCallback='http://mhacksiv.herokuapp.com/rec', )
+            transcribeCallback='http://queri.me/rec', )
     return str(resp)
 
 def text():
