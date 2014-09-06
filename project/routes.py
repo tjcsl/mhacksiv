@@ -14,5 +14,8 @@ add_url_routes((
     ('/', core.index),
     ('/about/', core.about),
     ('/account/alias/', alias.aliases),
-    ('/login/', auth.login)
+    ('/login/', auth.login),
+    ('/login/register/', auth.process_register),
+    ('/login/login/', auth.process_login),
+    ('/verifyemail/', auth.verifyemail)
 ))
