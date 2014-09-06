@@ -9,7 +9,7 @@ def create_reminder(date, text, phone):
     return "Reminder created."
 
 def get_needed_reminders():
-    stuff = Reminder.query.filter(Reminder.date < datetime.now()).all()
+    stuff = Reminder.query.filter(Reminder.date < datetime.utcnow()).all()
     for i in stuff:
         db_session.delete(i)
     db_session.commit()
