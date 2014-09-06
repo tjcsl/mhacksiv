@@ -64,7 +64,7 @@ def text():
 def rec():
     resp = twilio.twiml.Response()
     print repr(request.form)
-    recording = requests.get(request.form.get('RecordingUrl','')).text
+    recording = requests.get(request.form.get('RecordingUrl',''), stream=True).content
     m = do_wit(recording,request.form.get('From',''),recording=True)
     resp.say(m)
     return str(resp)
