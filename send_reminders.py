@@ -10,6 +10,7 @@ def send_reminder(text, phone):
 
 def send_all_reminders():
     x = project.utils.reminders.get_needed_reminders()
+    print("Sending %d reminders" % len(x))
     for i in x:
         send_reminder(i.text, i.phone)
 
