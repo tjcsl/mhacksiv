@@ -42,13 +42,29 @@ class User(Base):
 class Alias(Base):
     __tablename__ = 'aliases'
     uid = Column(Integer)
-    from = Column(String(64))
+    _from = Column(String(64))
     to = Column(String(64))
 
-    def __init__(self, uid=None, from=None, to=None):
+    def __init__(self, uid=None, _from=None, to=None):
         self.uid = uid
-        self.from = from
+        self._from = from
         self.to = to
 
     def __repr__(self):
-        return "<Alias %s to %s (uid %d)" % (self.from, self.to, self.uid)
+        return "<Alias %s to %s (uid %d)" % (self._from, self.to, self.uid)
+
+class Phone(Base):
+    __tablename__ = 'phones'
+    uid = Column(Integer)
+    phone_number = Column(String(24))
+    confirmation = Column(String(7))
+    is_confirmed = Column(Boolean)
+
+    def __init__(self, uid=None, phone_number=None, confirmation=None):
+        self.uid = uid
+        self.phone_number = phone_number
+        self.confirmation = confirmation
+        self.is_confirmed = False
+
+    def __repr__(self):
+        return "<Phone (who_was=%d) %s confirm %s>" % (self.uid, self.phone_number, self.confirmation)
