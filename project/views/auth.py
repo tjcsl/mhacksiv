@@ -60,8 +60,12 @@ def process_login():
             flash("Invalid username or password.", "danger")
         else:
             curruser = User.query.filter((User.username == request.form["username"]) | (User.email == request.form["username"])).first()
+            if not curruser.enabled:
+                flash("Your user is disabled.", "danger")
+                return redirect('/login/')
             session["user_id"] = curruser.uid
             session["username"] = curruser.username
+            session["admin"] = curruser.admin
             flash("Successfully logged in.", "success")
             return redirect('/')
     return render_template("login.html")

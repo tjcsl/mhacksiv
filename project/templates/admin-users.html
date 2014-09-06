@@ -1,0 +1,40 @@
+{% extends 'navbar.html' %}
+{% set this_page_id = 'admin-users' %}
+{% block content %}
+<h1>Hello, admin {{ session.username }}</h1>
+<table class="table table-bordered table-roundedtable-hover">
+    <tr>
+        <th>UID</th>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Enabled?</th>
+        <th>Admin?</th>
+        <th>Functions</th>
+    </tr>
+    {% for i in users %}
+    <tr>
+        <td>{{ i[0] }}</td>
+        <td>{{ i[1] }}</td>
+        <td>{{ i[2] }}</td>
+        <td>{{ i[3] }}</td>
+        <td>{{ i[4] }}</td>
+        <td class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin <span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+                <li><a href="/admin/users/delete/{{ i[0] }}">Delete</a></li>
+                {% if i[3] %}
+                <li><a href="/admin/users/disable/{{ i[0] }}">Disable</a></li>
+                {% else %}
+                <li><a href="/admin/users/enable/{{ i[0] }}">Enable</a></li>
+                {% endif %}
+                {% if i[4] %}
+                <li><a href="/admin/users/demote/{{ i[0] }}">Demote to user</a></li>
+                {% else %}
+                <li><a href="/admin/users/promote/{{ i[0] }}">Promote to admin</a></li>
+                {% endif %}
+            </ul>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

@@ -27,5 +27,11 @@ add_url_routes((
     ('/login/register/', auth.process_register),
     ('/login/login/', auth.process_login),
     ('/verifyemail/', auth.verifyemail),
-    ('/logout/', auth.logout)
+    ('/logout/', auth.logout),
+    ('/admin/users/', admin.users),
+    ('/admin/users/delete/<int:uid>/', admin.delete),
+    ('/admin/users/enable/<int:uid>/', admin.enable),
+    ('/admin/users/disable/<int:uid>/', admin.disable),
+    ('/admin/users/promote/<int:uid>/', admin.promote),
+    ('/admin/users/demote/<int:uid>/', admin.demote)
 ))
