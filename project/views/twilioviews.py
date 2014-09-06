@@ -21,7 +21,8 @@ def handle_key():
     digit_pressed = request.values.get('Digits', None)
     resp = twilio.twiml.Response()
     if digit_pressed == "1":
-        resp.say("Status over phone is not currently implemented.")
+        resp.record(timeout=10, transcribe=True,
+                transcribeCallback='http://queri.me/internal/rec')
     elif digit_pressed == "0":
         resp.play("http://a.tumblr.com/tumblr_mascpn4kyJ1qejfr7o1.mp3")
     elif digit_pressed == "4":
