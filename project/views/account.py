@@ -48,7 +48,7 @@ def delete_phone(pid):
         db_session.delete(phon)
         db_session.commit()
     flash("Phone deleted.", "success")
-    return render_template("account.html")
+    return redirect("/account/")
 
 def aliases():
     if "username" not in session:
