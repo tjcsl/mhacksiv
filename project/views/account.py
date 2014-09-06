@@ -40,7 +40,7 @@ def confirm_phone():
 def aliases():
     if "username" not in session:
         return redirect("/")
-    aliaslist = [(i._from, i.to) for i in Alias.query.filter(Alias.uid == session.user_id).all()]
+    aliaslist = [(i._from, i.to) for i in Alias.query.filter(Alias.uid == session["user_id"]).all()]
     return render_template("alias.html", aliases=aliaslist)
 
 def addalias():
