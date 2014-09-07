@@ -118,4 +118,6 @@ def rec():
     recording = requests.get(request.form.get('RecordingUrl',''), stream=True).content
     m = do_wit(recording,request.form.get('From',''),recording=True)
     resp.say(m)
+    resp.say("Thank you for using Query.")
+    resp.pause()
     return str(resp)
