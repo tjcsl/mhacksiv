@@ -50,7 +50,7 @@ def enable(uid):
         return redirect('/admin/users/')
     u.enabled = True
     db_session.commit()
-    flash("Disabled user.", "success")
+    flash("Enabled user.", "success")
     return redirect('/admin/users/')
 
 def promote(uid):
